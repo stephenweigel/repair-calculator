@@ -1,0 +1,15 @@
+{
+  "name": "AbsoluteMac",
+  "version": "0.0.1",
+  "description": "An application to help quote prices for customers at Absolute Mac",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/stephenweigel/absolutemac"
+  },
+  "author": "Stephen Weigel",
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-util": "^2.2.20",
+    "gulp-webserver": "^0.8.1"
+  }
+}
