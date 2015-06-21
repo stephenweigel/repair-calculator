@@ -1,11 +1,9 @@
 var myApp = angular.module('myApp', ['ngRoute', 'appControllers']);
 
+// Routes
 
 myApp.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
-		when('/login', {
-			templateUrl: 'views/login.html'
-		}).
 		when('/markup', {
 			templateUrl: 'views/markup.html',
 			controller: 'MarkupController'
@@ -13,6 +11,10 @@ myApp.config(['$routeProvider', function($routeProvider) {
 		when('/harddrives', {
 			templateUrl: 'views/harddrives.html',
 			controller: 'HardDrivesController'
+		}).
+		when('/ram', {
+			templateUrl: 'views/ram.html',
+			controller: 'RAMController'
 		}).
 		otherwise({
 			redirectTo: '/markup'
@@ -183,3 +185,10 @@ appControllers.controller('HardDrivesController', ['$scope', function($scope){
 
 	}); // document.ready
 }]); // HardDrivesController
+
+
+appControllers.controller('RAMController', ['$scope', function($scope){
+	angular.element(document).ready(function () {
+
+	}); // document.ready
+}]); // RAMController
