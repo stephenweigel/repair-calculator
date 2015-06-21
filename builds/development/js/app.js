@@ -119,6 +119,8 @@ appControllers.controller('MarkupController', ['$scope', function($scope){
 
 
 appControllers.controller('HardDrivesController', ['$scope', function($scope){
+		
+		
 	angular.element(document).ready(function () {
 		function HardDrivePricing() {
 			this.cost = 0;
@@ -182,7 +184,6 @@ appControllers.controller('HardDrivesController', ['$scope', function($scope){
 		}
 
 		displayDrivePrices();
-
 	}); // document.ready
 }]); // HardDrivesController
 
