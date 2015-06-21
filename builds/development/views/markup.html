@@ -1,1 +1,57 @@
-<h1>Markup</h1>
+<h1>Markup {{test}}</h1>
+
+<div class="row">
+        <div class="col-md-6">
+          <form id="partMarkupForm">
+            <h2>Part Cost</h2>
+            <div class="form-group">
+              <label for="partCost">Part Cost:</label>
+              <input type="number" min="0.01" step="0.01" class="form-control" id="partCost" placeholder="$0.00">
+            </div>
+            <div class="form-group">
+              <label for="partCost">Part Cost with Markup:</label>
+              <input type="number" class="form-control" id="partCostWithMarkup" placeholder="$0.00" readonly>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Price with Markup</button>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <h2>Labor Cost</h2>
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <h3>$99 Labor</h3>
+              <ul>
+                <li>Fan Replacement</li>
+                <li>Optical Drive Replacement</li>
+              </ul>
+              <button id="labor99" class="btn btn-primary">$99</button>
+            </div>
+            <div class="col-md-4">
+              <h3>$125 Labor</h3>
+              <ul>
+                <li>Trackpad Replacement</li>
+                <li>Clamshell Replacement</li>
+              </ul>
+              <button id="labor125" class="btn btn-primary">$125</button>
+            </div>
+            <div class="col-md-4">
+              <h3>$150 Labor</h3>
+              <ul>
+                <li>Logic Board Replacement</li>
+                <li>Top Case Replacement</li>
+                <li>iMac Video Card Replacement</li>
+              </ul>
+              <button id="labor150" class="btn btn-primary">$150</button>
+            </div>
+          </div>
+        </div>
+      </div> <!-- row -->
+
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h2>Total Repair Cost</h2>
+            <div>
+              <p id="totalRepairCost">Please calculate the part cost first.</p>
+            </div>
+        </div>
+      </div>
