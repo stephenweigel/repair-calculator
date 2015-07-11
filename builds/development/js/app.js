@@ -31,9 +31,10 @@ appControllers.controller('MarkupController', ['$scope', function($scope){
 		function MarkupCalculator() {
 			this.partCost = 0;
 			this.partMarkedUp = 0;
+			this.taxOnPart = 0;
 			this.laborCost = 0;
 			this.markupCalculated = false;
-			this.laborCost = 0;
+			this.laborCalculated = false;
 			this.totalRepairCost = 0;
 
 			this.setPartCost = function(cost) {
@@ -50,7 +51,16 @@ appControllers.controller('MarkupController', ['$scope', function($scope){
 
 			this.setLaborCost = function(cost) {
 				this.laborCost = parseInt(cost);
+				this.laborCalculated = true;
 			};
+
+			this.getTax = function() {
+				return this.taxOnPart;
+			};
+
+			this.getLabor = function() {
+				return this.laborCost;
+			}
 
 			this.calculateMarkup = function() {
 				var markup = this.partCost;
@@ -59,17 +69,14 @@ appControllers.controller('MarkupController', ['$scope', function($scope){
 				} else {
 					markup *= 1.42; // 42% markup
 				}
-				markup *= 1.06; // 6% tax
 				markup = Number(markup).toFixed(2);
 				this.partMarkedUp = Number(markup).toFixed(2);
+				this.taxOnPart = Number(this.partMarkedUp) * .06;
 				this.markupCalculated = true;
 				return markup;
 			};
 
-			this.displayPartMarkedUp = function(paragraphID) {
-				$("#" + paragraphID).text("The cost of the part is: $" + this.partMarkedUp + ". Please select the labor cost.");
-				return true;
-			};
+			
 
 			this.calculateTotalRepair = function() {
 				this.totalRepairCost = Number(this.partMarkedUp) + Number(this.laborCost);
@@ -78,16 +85,11 @@ appControllers.controller('MarkupController', ['$scope', function($scope){
 			};
 
 			this.displayTotalRepairCost = function(paragraphID) {
-				var message;
-				if ( this.markupCalculated ) {
-					this.calculateTotalRepair();
-					message  =  "The total cost of the repair is: $" + this.totalRepairCost + ".";
-					message += "The part cost is: $" + this.partMarkedUp + ".";
-					message += "The labor cost is: $" + this.laborCost + ".";
-					$("#" + paragraphID).text(message);
-				} else {
-					$("#" + paragraphID).text("Please calculate the part cost first.");
-				}
+				var totalCost;
+				totalCost  = Number(this.partMarkedUp);
+				totalCost += Number(this.taxOnPart);
+				totalCost += Number(this.laborCost);
+				$("#totalCost").text("$" + totalCost.toFixed(2));
 			};
 		} // MarkupCalculator
 
@@ -97,22 +99,35 @@ appControllers.controller('MarkupController', ['$scope', function($scope){
 			event.preventDefault(); // prevent form submission
 			absmac.setPartCost($("#partCost").val());
 			$("#partCostWithMarkup").val(absmac.calculateMarkup());
-			absmac.displayPartMarkedUp("totalRepairCost");
+			$("#partsCost").text("$" + Number(absmac.calculateMarkup()).toFixed(2));
+			$("#taxCost").text("$" + absmac.getTax().toFixed(2));
+			if ( absmac.laborCalculated == true ) {
+				absmac.displayTotalRepairCost();
+			}
 		});
 
 		$("#labor99").click(function() {
 			absmac.setLaborCost(99);
-			absmac.displayTotalRepairCost('totalRepairCost');
+			$("#laborCost").text("$" + absmac.getLabor().toFixed(2));
+			if ( absmac.markupCalculated === true ) {
+				absmac.displayTotalRepairCost();
+			}
 		});
 
 		$("#labor125").click(function() {
 			absmac.setLaborCost(125);
-			absmac.displayTotalRepairCost('totalRepairCost');
+			$("#laborCost").text("$" + absmac.getLabor().toFixed(2));
+			if ( absmac.markupCalculated === true ) {
+				absmac.displayTotalRepairCost();
+			}
 		});
 
 		$("#labor150").click(function() {
 			absmac.setLaborCost(150);
-			absmac.displayTotalRepairCost('totalRepairCost');
+			$("#laborCost").text(absmac.getLabor().toFixed(2));
+			if ( absmac.markupCalculated === true ) {
+				absmac.displayTotalRepairCost();
+			}
 		});	
 	}); // document.ready
 }]); // HardDrivesController
