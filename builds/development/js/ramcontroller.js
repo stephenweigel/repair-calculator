@@ -3,8 +3,15 @@ myApp.controller('RAMController', ['$scope', function($scope){
 	$scope.iMacs = iMacsByRamType;
 	$scope.mbps = mbpByRamType;
 
-	angular.element(document).ready(function () {
-	}); // document.ready
+	$scope.tab = 'iMac';
+
+	this.selectTab = function(setTab) {
+		$scope.tab = setTab;
+	};
+
+	this.isSelected = function(checkTab) {
+		return $scope.tab === checkTab;
+	};
 }]); // RAMController
 
 var ramTypes = [

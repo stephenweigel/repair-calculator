@@ -1,62 +1,75 @@
-<section ng-controller="RAMController">
-<div class="col-md-4">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>RAM Amount</th>
-				<th>Customer Price</th>
-				<th>Cost to Store</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="ram in ramTypes">
-				<td>{{ram.size}}</td>
-				<td>{{ram.costToCustomer | currency }}</td>
-				<td>{{ram.costToStore | currency }}</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-
-<div class="col-md-7 col-md-offset-1">
-	<table class="table">
-		<h4>iMac</h4>
-		<p>RAM cannot be upgraded for iMac 21.5-inch Late 2012, Late 2013, Mid 2014</p>
-		<tr>
-			<th>Computer Model</th>
-			<th>RAM Type</th>
-			<th>Max RAM</th>
-			<th>Compatible Sizes</th>
-		</tr>
-		<tr ng-repeat="imac in iMacs">
-			<td>
-				<p ng-repeat="model in imac.models">
-					{{model}}
-				</p>
-			</td>
-			<td>{{imac.ramType}}</td>
-			<td>{{imac.maxRam}}</td>
-			<td>{{imac.stickSizes.join(', ')}}</td>
-		</tr>
-	</table>
+<section ng-controller="RAMController as ramctrl">
+	<div class="col-md-4">
 		<table class="table">
-		<h4>MacBook Pro</h4>
-		<tr>
-			<th>Computer Model</th>
-			<th>RAM Type</th>
-			<th>Max RAM</th>
-			<th>Compatible Sizes</th>
-		</tr>
-		<tr ng-repeat="mbp in mbps">
-			<td>
-				<p ng-repeat="model in mbp.models">
-					{{model}}
-				</p>
-			</td>
-			<td>{{mbp.ramType}}</td>
-			<td>{{mbp.maxRAM}}</td>
-			<td>{{mbp.stickSizes.join(', ')}}</td>
-		</tr>
-	</table>
-</div>
+			<thead>
+				<tr>
+					<th>RAM Amount</th>
+					<th>Customer Price</th>
+					<th>Cost to Store</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="ram in ramTypes">
+					<td>{{ram.size}}</td>
+					<td>{{ram.costToCustomer | currency }}</td>
+					<td>{{ram.costToStore | currency }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="col-md-7 col-md-offset-1">
+		<ul class="nav nav-pills">
+			<li ng-class="{ active:ramctrl.isSelected('iMac') }">
+				<a href ng-click="ramctrl.selectTab('iMac')">iMac</a>
+			</li>
+			<li ng-class="{ active:ramctrl.isSelected('mbp') }">
+				<a href ng-click="ramctrl.selectTab('mbp')">MacBookPro</a>
+			</li>
+		</ul>
+			<div ng-show="ramctrl.isSelected('iMac')" >
+				<table class="table">
+					<h4>iMac</h4>
+					<p>RAM cannot be upgraded for iMac 21.5-inch Late-2012, Late-2013, Mid-2014</p>
+					<tr>
+						<th>Computer Model</th>
+						<th>RAM Type</th>
+						<th>Max RAM</th>
+						<th>Compatible Sizes</th>
+					</tr>
+					<tr ng-repeat="imac in iMacs">
+						<td>
+							<p ng-repeat="model in imac.models">
+								{{model}}
+							</p>
+						</td>
+						<td>{{imac.ramType}}</td>
+						<td>{{imac.maxRam}}</td>
+						<td>{{imac.stickSizes.join(', ')}}</td>
+					</tr>
+				</table>
+			</div>
+			<div ng-show="ramctrl.isSelected('mbp')">
+				<table class="table">
+					<h4>MacBook Pro</h4>
+					<tr>
+						<th>Computer Model</th>
+						<th>RAM Type</th>
+						<th>Max RAM</th>
+						<th>Compatible Sizes</th>
+					</tr>
+					<tr ng-repeat="mbp in mbps">
+						<td>
+							<p ng-repeat="model in mbp.models">
+								{{model}}
+							</p>
+						</td>
+						<td>{{mbp.ramType}}</td>
+						<td>{{mbp.maxRam}}</td>
+						<td>{{mbp.stickSizes.join(', ')}}</td>
+					</tr>
+				</table>
+			</div>
+
+	</div>
 </section>
