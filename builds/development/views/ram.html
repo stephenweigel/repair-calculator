@@ -60,16 +60,22 @@
 				<tr>
 					<th>RAM Amount</th>
 					<th>Customer Price</th>
-					<th>Cost to Store</th>
+					<th ng-show="costToStore.show">Cost to Store</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="ram in ramTypes">
 					<td>{{ram.size}}</td>
 					<td>{{ram.costToCustomer | currency }}</td>
-					<td>{{ram.costToStore | currency }}</td>
+					<td ng-show="costToStore.show">{{ram.costToStore | currency }}</td>
 				</tr>
 			</tbody>
 		</table>
+		<div class="btn-group">
+			<label class="btn btn-primary">
+				Show Cost to Store
+				<input id="storeCostCheckbox" ng-model="costToStore.show" type="checkbox" /> 
+			</label>
+		</div>
 	</div>
 </section>
