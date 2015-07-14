@@ -1,4 +1,4 @@
-<section ng-controller="MarkupController">
+<section ng-controller="MarkupController as markupCtrl">
 <h1>Markup Calculator</h1>
 
 <div class="row">
@@ -74,7 +74,41 @@
                 </tr>
               </table>
             </div>
-        </div>
 
+            <form name="partForm" id="partForm" ng-submit="partForm.$valid && addToRepair()" novalidate>
+              <div class="form-group">
+                <label>Part Name: </label>
+                  <input type="text" name="partName" id="partName" ng-model="markupCtrl.partName" required />
+                </label>
+                <input type="submit" id="addToCart" class="btn btn-primary" value="Add to Repair"/>
+              </div><!-- form-group -->
+            </form>
+        </div>
       </div> <!-- row -->
+
+      <div class="row">
+        <h4>Repair Info</h4>
+        <table class="table" ng-show="repair.length">
+          <tr>
+            <th>Part</th>
+            <th>Price</th>
+            <th>Tax</th>
+            <th>Labor</th>
+            <th>Total</th>
+          </tr>
+          <tr ng-repeat="part in repair">
+            <td>{{part.name}}</td>
+            <td>{{part.price | currency }}</td>
+            <td>{{part.tax | currency }}</td>
+            <td>{{part.labor | currency }}</td>
+            <td>{{part.total | currency }}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total</td>
+            <td>{{repairTotal | currency }}
+        </table>
+      </div><!-- row -->
     </section>

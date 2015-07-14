@@ -1,105 +1,124 @@
 myApp.controller('MarkupController', ['$scope', function($scope){
-	angular.element(document).ready(function () {
-		function MarkupCalculator() {
-			this.partCost = 0;
-			this.partMarkedUp = 0;
-			this.taxOnPart = 0;
-			this.laborCost = 0;
-			this.markupCalculated = false;
-			this.laborCalculated = false;
-			this.totalRepairCost = 0;
+			$scope.partCost = 0;
+			$scope.partMarkedUp = 0;
+			$scope.taxOnPart = 0;
+			$scope.laborCost = 0;
+			$scope.markupCalculated = false;
+			$scope.laborCalculated = false;
+			$scope.totalRepairCost = 0;
+			$scope.partName = "";
+			$scope.repair = [];
+			$scope.repairTotal = 0;
 
-			this.setPartCost = function(cost) {
-				this.partCost = parseInt(cost).toFixed(2);
+			$scope.setPartCost = function(cost) {
+				$scope.partCost = parseInt(cost).toFixed(2);
 			};
 
-			this.getPartCost = function() {
-				return this.partCost;
+			$scope.getPartCost = function() {
+				return $scope.partCost;
 			};
 
-			this.getPartMarkedUp = function() {
-				return this.partMarkedUp;
+			$scope.getPartMarkedUp = function() {
+				return $scope.partMarkedUp;
 			};
 
-			this.setLaborCost = function(cost) {
-				this.laborCost = parseInt(cost);
-				this.laborCalculated = true;
+			$scope.setLaborCost = function(cost) {
+				$scope.laborCost = parseInt(cost);
+				$scope.laborCalculated = true;
 			};
 
-			this.getTax = function() {
-				return this.taxOnPart;
+			$scope.getTax = function() {
+				return $scope.taxOnPart;
 			};
 
-			this.getLabor = function() {
-				return this.laborCost;
+			$scope.getLabor = function() {
+				return $scope.laborCost;
 			}
 
-			this.calculateMarkup = function() {
-				var markup = this.partCost;
-				if ( this.partCost > 149.99 ) {
+			$scope.calculateMarkup = function() {
+				var markup = $scope.partCost;
+				if ( $scope.partCost > 149.99 ) {
 					markup *= 1.25; // 25% markup
 				} else {
 					markup *= 1.42; // 42% markup
 				}
 				markup = Number(markup).toFixed(2);
-				this.partMarkedUp = Number(markup).toFixed(2);
-				this.taxOnPart = Number(this.partMarkedUp) * .06;
-				this.markupCalculated = true;
+				$scope.partMarkedUp = Number(markup).toFixed(2);
+				$scope.taxOnPart = Number($scope.partMarkedUp) * .06;
+				$scope.markupCalculated = true;
 				return markup;
 			};
 
-			
 
-			this.calculateTotalRepair = function() {
-				this.totalRepairCost = Number(this.partMarkedUp) + Number(this.laborCost);
-				this.totalRepairCost = this.totalRepairCost.toFixed(2);
-				return this.totalRepairCost;
+			$scope.calculateTotalRepair = function() {
+				$scope.totalRepairCost = Number($scope.partMarkedUp) + Number($scope.laborCost);
+				$scope.totalRepairCost = $scope.totalRepairCost.toFixed(2);
+				return $scope.totalRepairCost;
 			};
 
-			this.displayTotalRepairCost = function(paragraphID) {
+			$scope.displayTotalRepairCost = function(paragraphID) {
 				var totalCost;
-				totalCost  = Number(this.partMarkedUp);
-				totalCost += Number(this.taxOnPart);
-				totalCost += Number(this.laborCost);
+				totalCost  = Number($scope.partMarkedUp);
+				totalCost += Number($scope.taxOnPart);
+				totalCost += Number($scope.laborCost);
 				$("#totalCost").text("$" + totalCost.toFixed(2));
 			};
-		} // MarkupCalculator
 
-		var absmac = new MarkupCalculator;
+			$scope.addToRepair = function() {
+				$scope.partName = $("#partName").val();
+				var partInfo = {
+					"price" : $scope.partMarkedUp,
+					"tax" : $scope.taxOnPart,
+					"labor" : $scope.laborCost,
+					"name" : $scope.partName,
+					"total": Number($scope.partMarkedUp) 
+							+ Number($scope.taxOnPart)
+							+ Number($scope.laborCost)
+				};
+				$scope.repair.push(partInfo);
+				$scope.calculateRepairTotal();
+			};
+
+			$scope.calculateRepairTotal = function() {
+				$scope.repairTotal = 0;
+				for ( var i = 0; i < $scope.repair.length; i++ ) {
+					$scope.repairTotal += $scope.repair[i].total;
+				}
+			};			
+
 
 		$("#partMarkupForm").on('submit', function(event){
 			event.preventDefault(); // prevent form submission
-			absmac.setPartCost($("#partCost").val());
-			$("#partCostWithMarkup").val(absmac.calculateMarkup());
-			$("#partsCost").text("$" + Number(absmac.calculateMarkup()).toFixed(2));
-			$("#taxCost").text("$" + absmac.getTax().toFixed(2));
-			if ( absmac.laborCalculated == true ) {
-				absmac.displayTotalRepairCost();
+			$scope.setPartCost($("#partCost").val());
+			$("#partCostWithMarkup").val($scope.calculateMarkup());
+			$("#partsCost").text("$" + Number($scope.calculateMarkup()).toFixed(2));
+			$("#taxCost").text("$" + $scope.getTax().toFixed(2));
+			if ( $scope.laborCalculated == true ) {
+				$scope.displayTotalRepairCost();
 			}
 		});
 
 		$("#labor99").click(function() {
-			absmac.setLaborCost(99);
-			$("#laborCost").text("$" + absmac.getLabor().toFixed(2));
-			if ( absmac.markupCalculated === true ) {
-				absmac.displayTotalRepairCost();
+			$scope.setLaborCost(99);
+			$("#laborCost").text("$" + $scope.getLabor().toFixed(2));
+			if ( $scope.markupCalculated === true ) {
+				$scope.displayTotalRepairCost();
 			}
 		});
 
 		$("#labor125").click(function() {
-			absmac.setLaborCost(125);
-			$("#laborCost").text("$" + absmac.getLabor().toFixed(2));
-			if ( absmac.markupCalculated === true ) {
-				absmac.displayTotalRepairCost();
+			$scope.setLaborCost(125);
+			$("#laborCost").text("$" + $scope.getLabor().toFixed(2));
+			if ( $scope.markupCalculated === true ) {
+				$scope.displayTotalRepairCost();
 			}
 		});
 
 		$("#labor150").click(function() {
-			absmac.setLaborCost(150);
-			$("#laborCost").text(absmac.getLabor().toFixed(2));
-			if ( absmac.markupCalculated === true ) {
-				absmac.displayTotalRepairCost();
+			$scope.setLaborCost(150);
+			$("#laborCost").text($scope.getLabor().toFixed(2));
+			if ( $scope.markupCalculated === true ) {
+				$scope.displayTotalRepairCost();
 			}
 		});	
-	}); // document.ready
 }]); // MarkupController
