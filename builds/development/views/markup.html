@@ -4,18 +4,14 @@
 <div class="row">
         <div class="col-md-8">
           <div class="col-md-4">
-            <form id="partMarkupForm">
               <h2>Part Cost</h2>
               <div class="form-group">
-                <label for="partCost">Part Cost:</label>
-                <input type="number" min="0.01" step="0.01" class="form-control" id="partCost" placeholder="$0.00">
+                <label for="partCost">Part Cost ( including shipping ):</label>
+                <input type="number" min="0.01" step="0.01" class="form-control" id="partCost" ng-model="partCost" placeholder="$0.00">
               </div>
-              <div class="form-group">
-                <label for="partCost">Part Cost with Markup:</label>
-                <input type="number" class="form-control" id="partCostWithMarkup" placeholder="$0.00" readonly>
-              </div>
-              <button type="submit" class="btn btn-primary">Get Price with Markup</button>
-            </form>
+              <p>
+                Part Cost with Markup: {{ calculateMarkup() | currency }}
+              </p>
           </div>
 
           <div class="col-md-8">
@@ -26,14 +22,14 @@
                   <li>Fan Replacement</li>
                   <li>Optical Drive Replacement</li>
                 </ul>
-                <button id="labor99" class="btn btn-primary btn-lg">$99</button>
+                <button id="labor99" class="btn btn-primary btn-lg" ng-click="setLaborCost(99)">$99</button>
               </div>
               <div class="col-md-4">
                 <ul class="repairTypes">
                   <li>Trackpad Replacement</li>
                   <li>Clamshell Replacement</li>
                 </ul>
-                <button id="labor125" class="btn btn-primary btn-lg">$125</button>
+                <button id="labor125" class="btn btn-primary btn-lg" ng-click="setLaborCost(125)">$125</button>
               </div>
               <div class="col-md-4">
                 <ul class="repairTypes">
@@ -41,7 +37,7 @@
                   <li>Top Case Replacement</li>
                   <li>iMac Video Card Replacement</li>
                 </ul>
-                <button id="labor150" class="btn btn-primary btn-lg">$150</button>
+                <button id="labor150" class="btn btn-primary btn-lg" ng-click="setLaborCost(150)">$150</button>
               </div>
             </div>
           </div>
@@ -49,7 +45,7 @@
         </div>
 
         <div class="col-md-4">
-          <h2 class="text-center">Total Repair Cost</h2>
+          <h2 class="text-center">Total Part Cost</h2>
             <div>
               <table class="table">
                 <tr>
@@ -58,19 +54,19 @@
                 </tr>
                 <tr>
                   <td>Labor Cost</td>
-                  <td id="laborCost"></td>
+                  <td id="laborCost">{{ laborCost | currency }}</td>
                 </tr>
                 <tr>
                   <td>Parts Cost</td>
-                  <td id="partsCost"></td>
+                  <td id="partsCost">{{ partMarkedUp | currency }}</td>
                 </tr>
                 <tr>
                   <td>Tax</td>
-                  <td id="taxCost"></td>
+                  <td id="taxCost">{{ taxOnPart | currency }}</td>
                 </tr>
                 <tr>
                   <th>Total</th>
-                  <td id="totalCost"></td>
+                  <td id="totalCost">{{ calculatePartTotal() | currency }} </td>
                 </tr>
               </table>
             </div>
@@ -78,7 +74,7 @@
             <form name="partForm" id="partForm" ng-submit="partForm.$valid && addToRepair()" novalidate>
               <div class="form-group">
                 <label>Part Name: </label>
-                  <input type="text" name="partName" id="partName" ng-model="markupCtrl.partName" required />
+                  <input type="text" name="partName" id="partName" ng-model="partName" required />
                 </label>
                 <input type="submit" id="addToCart" class="btn btn-primary" value="Add to Repair"/>
               </div><!-- form-group -->
@@ -87,7 +83,8 @@
       </div> <!-- row -->
 
       <div class="row">
-        <h4>Repair Info</h4>
+        <h4>Total Repair Cost</h4>
+        <p ng-hide="repair.length">Please add a part to the repair.</p>
         <table class="table" ng-show="repair.length">
           <tr>
             <th>Part</th>
@@ -108,7 +105,7 @@
             <td></td>
             <td></td>
             <td>Total</td>
-            <td>{{repairTotal | currency }}
+            <td>{{ calculateRepairTotal() | currency }}
         </table>
       </div><!-- row -->
     </section>
