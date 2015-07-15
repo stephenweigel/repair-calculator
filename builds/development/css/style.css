@@ -1,7 +1,46 @@
 /* Markup Calculator */
+
+#partCostDiv, #laborCostDiv, #totalCostDiv {
+  padding: 1em;
+}
+
+#partCostDiv {
+	text-align: center;
+}
+
+#markupInfo {
+	list-style: none;
+	text-align: left;
+	padding-left: 0;
+}
+
 .repairTypes {
 	min-height: 150px;
 	padding-left: 0;
+	text-align: center;
+}
+
+.repairTypes li {
+	margin: .5em;
+	list-style: none;
+	font-size: 1.1em;
+}
+
+.laborBtn {
+	display: block;
+	margin: 1em auto 0;
+}
+
+#partForm {
+	text-align: center;
+}
+
+#totalRepairCost {
+	margin-top: 2em;
+}
+
+#totalRepairCost h2 {
+	text-align: center;
 }
 
 /* RAM */

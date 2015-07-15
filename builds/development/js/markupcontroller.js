@@ -7,37 +7,39 @@ myApp.controller('MarkupController', ['$scope', function($scope){
 			$scope.partName = "";
 			$scope.repair = [];
 			$scope.repairTotal = 0;
+			$scope.markup = {};
 
 			$scope.setLaborCost = function(cost) {
 				$scope.laborCost = parseInt(cost);
 			};
 
 			$scope.calculateMarkup = function() {
-				var markup = $scope.partCost;
-				if ( $scope.partCost > 149.99 ) {
-					markup *= 1.25; // 25% markup
-				} else {
-					markup *= 1.42; // 42% markup
+				var sp = $scope.markup.startingPrice 
+					   = Number($scope.partCost);
+				if ( sp > 149.99 ) {
+					$scope.markup.markupPercentage = .25;
+					$scope.markup.markedUpPrice = sp * 1.25;
+				} else { 
+					$scope.markup.markupPercentage = .42;
+					$scope.markup.markedUpPrice = sp * 1.42;
 				}
-				markup = Number(markup).toFixed(2);
-				$scope.partMarkedUp = Number(markup).toFixed(2);
-				$scope.taxOnPart = Number($scope.partMarkedUp) * .06;
-				$scope.markupCalculated = true;
-				return markup;
+				$scope.markup.markup = sp * $scope.markup.markupPercentage;
+				$scope.taxOnPart = $scope.markup.markedUpPrice * .06;
+				return $scope.markup;
 			};
 
 			$scope.calculatePartTotal = function() {
-				return Number($scope.partMarkedUp) + Number($scope.taxOnPart)
+				return Number($scope.markup.markedUpPrice) + Number($scope.taxOnPart)
 						+ Number($scope.laborCost)
 			};
 
 			$scope.addToRepair = function() {
 				var partInfo = {
-					"price" : $scope.partMarkedUp,
+					"price" : $scope.markup.markedUpPrice,
 					"tax" : $scope.taxOnPart,
 					"labor" : $scope.laborCost,
 					"name" : $scope.partName,
-					"total": Number($scope.partMarkedUp) 
+					"total": Number($scope.markup.markedUpPrice) 
 							+ Number($scope.taxOnPart)
 							+ Number($scope.laborCost)
 				};

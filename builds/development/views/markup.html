@@ -1,20 +1,38 @@
 <section ng-controller="MarkupController as markupCtrl">
-<h1>Markup Calculator</h1>
+<h1>Repair Cost Calculator</h1>
 
 <div class="row">
         <div class="col-md-8">
-          <div class="col-md-4">
-              <h2>Part Cost</h2>
+          <div class="col-md-4" id="partCostDiv">
+              <h2 class="text-center">Part Cost</h2>
               <div class="form-group">
                 <label for="partCost">Part Cost ( including shipping ):</label>
                 <input type="number" min="0.01" step="0.01" class="form-control" id="partCost" ng-model="partCost" placeholder="$0.00">
               </div>
-              <p>
-                Part Cost with Markup: {{ calculateMarkup() | currency }}
-              </p>
+              <div>
+                <div ng-show="markupInfo.show">
+                  <ul id="markupInfo">
+                    <li class="markupInfo">
+                      Markup Percentage: {{ markup.markupPercentage | percentage }}
+                    </li>
+                    <li class="markupInfo">
+                      Markup: {{ markup.markup | currency }}
+                    </li>
+                    <li class="markupInfo">
+                      Part Cost with Markup: {{ calculateMarkup().markedUpPrice | currency }}
+                    </li>
+
+                </div>
+                <div class="btn-group">
+                  <label class="btn btn-primary">
+                    Show Markup Info
+                    <input id="storeCostCheckbox" ng-model="markupInfo.show" type="checkbox" /> 
+                  </label>
+                </div>
+              </div>
           </div>
 
-          <div class="col-md-8">
+          <div class="col-md-8" id="laborCostDiv">
             <h2 class="text-center">Labor Cost</h2>
             <div class="col-md-12">
               <div class="col-md-4">
@@ -22,14 +40,14 @@
                   <li>Fan Replacement</li>
                   <li>Optical Drive Replacement</li>
                 </ul>
-                <button id="labor99" class="btn btn-primary btn-lg" ng-click="setLaborCost(99)">$99</button>
+                <button class="btn btn-primary btn-lg laborBtn" ng-click="setLaborCost(99)">$99</button>
               </div>
               <div class="col-md-4">
                 <ul class="repairTypes">
                   <li>Trackpad Replacement</li>
                   <li>Clamshell Replacement</li>
                 </ul>
-                <button id="labor125" class="btn btn-primary btn-lg" ng-click="setLaborCost(125)">$125</button>
+                <button class="btn btn-primary btn-lg laborBtn" ng-click="setLaborCost(125)">$125</button>
               </div>
               <div class="col-md-4">
                 <ul class="repairTypes">
@@ -37,17 +55,17 @@
                   <li>Top Case Replacement</li>
                   <li>iMac Video Card Replacement</li>
                 </ul>
-                <button id="labor150" class="btn btn-primary btn-lg" ng-click="setLaborCost(150)">$150</button>
+                <button class="btn btn-primary btn-lg laborBtn" ng-click="setLaborCost(150)">$150</button>
               </div>
             </div>
           </div>
 
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4" id="totalCostDiv">
           <h2 class="text-center">Total Part Cost</h2>
             <div>
-              <table class="table">
+              <table class="table col-md-8 col-md-offset-1">
                 <tr>
                   <th>Item</th>
                   <th>Cost</th>
@@ -58,7 +76,7 @@
                 </tr>
                 <tr>
                   <td>Parts Cost</td>
-                  <td id="partsCost">{{ partMarkedUp | currency }}</td>
+                  <td id="partsCost">{{ markup.markedUpPrice | currency }}</td>
                 </tr>
                 <tr>
                   <td>Tax</td>
@@ -82,9 +100,10 @@
         </div>
       </div> <!-- row -->
 
-      <div class="row">
-        <h4>Total Repair Cost</h4>
-        <p ng-hide="repair.length">Please add a part to the repair.</p>
+      <section class="row" id="totalRepairCost">
+        <div class="col-md-6 col-md-offset-3">
+        <h2>Total Repair Cost</h2>
+        <p class="text-center" ng-hide="repair.length">Please add a part to the repair.</p>
         <table class="table" ng-show="repair.length">
           <tr>
             <th>Part</th>
@@ -107,5 +126,6 @@
             <td>Total</td>
             <td>{{ calculateRepairTotal() | currency }}
         </table>
-      </div><!-- row -->
+      </div>
+      </section><!-- row -->
     </section>
