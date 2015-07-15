@@ -1,68 +1,36 @@
-myApp.controller('HardDrivesController', ['$scope', function($scope){
-		
-		
-	angular.element(document).ready(function () {
-		function HardDrivePricing() {
-			this.cost = 0;
-			this.markedUp = 0;
-			this.clean;
-			this.migration;
-			this.recovery;
+myApp.controller('HardDrivesController', ['$scope', '$http', function($scope, $http){
+	$scope.gsxCost = 0;
 
-			this.setCost = function(cost) {
-				this.cost = Number(cost);
-				this.calculateMarkup();
-			};
-
-			this.getMarkedUp = function() {
-				return this.markedUp;
-			};
-
-			this.getCleanInstall = function() {
-				this.clean = Number(this.markedUp) + Number(149);
-				return this.clean;
-			};
-
-			this.getDataMigration = function() {
-				this.migration = Number(this.markedUp) + Number(174);
-				return this.migration;
-			};
-
-			this.getDataRecovery = function() {
-				this.recovery = Number(this.markedUp) + Number(249);
-				return this.recovery;
-			};
-
-			this.calculateMarkup = function() {
-				var markup;
-				markup  = this.cost + 7; // shipping
-				if ( this.cost > 149.99 ) {
-					markup *= 1.25; // markup
-				} else {
-					markup *= 1.42; // markup
-				}
-				markup *= 1.06; // tax
-				this.markedUp = markup;
-				return true;
-			};
-		} // HardDrivePricing
-
-		function displayDrivePrices() {
-			displayDrivePrice('HDD-25-500GB', 58.92);
-			displayDrivePrice('HDD-25-1TB', 64.99);
-			displayDrivePrice('HDD-35-500GB', 68.99);
-			displayDrivePrice('HDD-35-1TB', 70.31);
+	$http.get('../data/hdds.json').success(function(data){
+		$scope.hdds = data;
+		for ( var i = 0; i < $scope.hdds.length; i++ ) {
+			var drive = $scope.hdds[i];
+			$scope.hdds[i] = $scope.calculatePrices(drive);
 		}
+	});
 
-		function displayDrivePrice(drive,cost) {
-			var hdd = new HardDrivePricing;
-			hdd.setCost(cost);
-			$('#' + drive + '-Price').html('$' + hdd.getMarkedUp().toFixed(2));
-			$('#' + drive + '-Clean').html('$' + hdd.getCleanInstall().toFixed(2));
-			$('#' + drive + '-Migration').html('$' + hdd.getDataMigration().toFixed(2));
-			$('#' + drive + '-Recovery').html('$' + hdd.getDataRecovery().toFixed(2));
+	$scope.calculateGsxPrice = function() {
+		var drive = { 
+			"price" : $scope.gsxCost
+		};
+		return $scope.calculatePrices(drive);
+	};
+
+	$scope.calculatePrices = function(drive) {
+		var cost = Number(drive.price);
+
+		if ( cost > 149.99 ) {
+			drive.markup = cost * 1.25;
+		} else {
+			drive.markup = cost * 1.42;
 		}
+		
+		drive.tax = drive.markup * .06;
+		drive.taxed = drive.markup + drive.tax;
+		drive.clean = drive.taxed + 149;
+		drive.migration = drive.taxed + 174;
+		drive.recovery = drive.taxed + 249;
+		return drive;
+	};
 
-		displayDrivePrices();
-	}); // document.ready
 }]); // HardDrivesController

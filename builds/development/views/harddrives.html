@@ -5,74 +5,64 @@
 <table class="table">
 	<tr>
 		<th>Hard Drive</th>
+		<th ng-show="costToStore.show">Cost to Store</th>
 		<th>Drive Price</th>
-		<th>w/ Clean Install</th>
-		<th>w/ Data Migration</th>
-		<th>w/ Data Recovery</th>
+		<th>Tax on Drive</th>
+		<th>Total with Clean Install</th>
+		<th>Total with Data Migration</th>
+		<th>Total with Data Recovery</th>
 	</tr>
-	<tr>
-		<td>2.5" 500GB 7200RPM</td>
-		<td id="HDD-25-500GB-Price"></td>
-		<td id="HDD-25-500GB-Clean"></td>
-		<td id="HDD-25-500GB-Migration"></td>
-		<td id="HDD-25-500GB-Recovery"></td>
-	<tr>
-	<tr>
-		<td>2.5" 1TB 7200RPM</td>
-		<td id="HDD-25-1TB-Price"></td>
-		<td id="HDD-25-1TB-Clean"></td>
-		<td id="HDD-25-1TB-Migration"></td>
-		<td id="HDD-25-1TB-Recovery"></td>
-
-	</tr>
-	<tr>
-		<td>3.5" 500GB 7200RPM</td>
-		<td id="HDD-35-500GB-Price"></td>
-		<td id="HDD-35-500GB-Clean"></td>
-		<td id="HDD-35-500GB-Migration"></td>
-		<td id="HDD-35-500GB-Recovery"></td>
-	<tr>
-	<tr>
-		<td>3.5" 1TB 7200RPM</td>
-		<td id="HDD-35-1TB-Price"></td>
-		<td id="HDD-35-1TB-Clean"></td>
-		<td id="HDD-35-1TB-Migration"></td>
-		<td id="HDD-35-1TB-Recovery"></td>
+	<tr ng-repeat="hdd in hdds">
+	<td>{{ hdd.name }}</td>
+	<td ng-show="costToStore.show">{{ hdd.price | currency }}</td>
+	<td>{{ hdd.markup | currency }}</td>
+	<td>{{ hdd.tax | currency }}</td>
+	<td>{{ hdd.clean | currency }}</td>
+	<td>{{ hdd.migration | currency }}</td>
+	<td>{{ hdd.recovery | currency }}</td>
 	</tr>
 </table>
+
+<div class="btn-group">
+	<label class="btn btn-primary">
+		Show Cost to Store
+		<input ng-model="costToStore.show" type="checkbox" /> 
+	</label>
+</div>
 
 <h3> Apple Hard Drives ordered from GSX must be used for 2009-Current iMacs </h3>
 
 
 <div class="col-md-4">
 	<h4>Enter GSX Cost</h4>
-	$<input type="number" ng-model="gsxCost" ng-init="gsxCost = 0.00">
+	$<input type="number" ng-model="gsxCost" placeholder="$0.00" />
 </div>
 
 <div class="col-md-7 col-md-offset-1">
 	
 	<table class="table">
 		<tr>
-			<th>Drive Price**</th>
-			<th>w/ Clean Install</th>
-			<th>w/ Data Migration</th>
-			<th>w/ Data Recovery</th>
+			<th>Drive Price</th>
+			<th>Tax on Drive</th>
+			<th>Total</th>
 		</tr>
 		<tr>
-			<td id="appleHDDPrice">
-				${{(gsxCost * 1.25).toFixed(2)}}
-			</td>
-			<td id="appleHDDClean">
-				${{	((gsxCost * 1.25) + 156).toFixed(2) }}
-			</td>
-			<td id="appleHDDMigration">
-				${{	((gsxCost * 1.25) + 181).toFixed(2) }}
-			</td>
-			<td id="appleHDDRecovery">
-				${{	((gsxCost * 1.25) + 256).toFixed(2) }}
-			</td>
+			<td>{{ calculateGsxPrice().markup | currency }}</td>
+			<td>{{ calculateGsxPrice().tax | currency }}</td>
+			<td>{{ calculateGsxPrice().taxed | currency }}</td>
+
+		</tr>
+		<tr>
+			<th>Total with Clean Install</th>
+			<th>Total with Data Migration</th>
+			<th>Total with Data Recovery</th>
+		</tr>
+		<tr>
+		
+			<td>{{ calculateGsxPrice().clean | currency }}</td>
+			<td>{{ calculateGsxPrice().migration | currency }}</td>
+			<td>{{ calculateGsxPrice().recovery | currency }}</td>
 		</tr>
 	</table>
-	<h4>**Cost includes shipping and 25% markup but does not include sales tax</h4>
 </div>
 </section>
