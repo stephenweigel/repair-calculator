@@ -1,0 +1,39 @@
+[
+	{
+		"models" : [
+			"MacBook Pro 17-inch Early-2009",
+			"MacBook Pro 13-inch Mid-2009",
+			"MacBook Pro 15-inch 2.53GHz Mid-2009",
+			"MacBook Pro 15-inch Mid-2009",
+			"MacBook Pro 17-inch Mid-2009",
+			"MacBook Pro 13-inch Mid-2010",
+			"MacBook Pro 15-inch Mid-2010",
+			"MacBook Pro 17-inch Mid-2010"
+		],
+		"ramType" : "PC3-8500 | 1066 Mhz",
+		"maxRam" : "8GB",
+		"stickSizes" : [ "2GB", "4GB" ]
+	},
+	{
+		"models" : [
+			"MacBook Pro 13-inch Early-2011",
+			"MacBook Pro 15-inch Early-2011",
+			"MacBook Pro 17-inch Early-2011",
+			"MacBook Pro 13-inch Late-2011",
+			"MacBook Pro 15-inch Late-2011",
+			"MacBook Pro 17-inch Late-2011"
+		],
+		"ramType" : "PC3-10600 | 1333 Mhz",
+		"maxRam" : "8GB",
+		"stickSizes" : [ "2GB", "4GB" ]
+	},
+	{
+		"models" : [
+			"MacBook Pro 13-inch Mid-2012",
+			"MacBook Pro 15-inch Mid-2012"
+		],
+		"ramType" : "PC3-12800 | 1600 Mhz",
+		"maxRam" : "8GB",
+		"stickSizes" : [ "2GB", "4GB" ]
+	}
+]

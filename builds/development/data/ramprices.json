@@ -1,0 +1,22 @@
+[
+    {
+        "size": "2GB",
+        "costToStore": 27.99,
+        "costToCustomer": 49
+    },
+    {
+        "size": "4GB",
+        "costToStore": 50,
+        "costToCustomer": 99
+    },
+    {
+        "size": "8GB",
+        "costToStore": 56,
+        "costToCustomer": 149
+    },
+    {
+        "size": "2GB",
+        "costToStore": 100,
+        "costToCustomer": 199
+    }
+]
