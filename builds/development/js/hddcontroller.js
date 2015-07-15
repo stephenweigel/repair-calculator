@@ -1,5 +1,5 @@
 myApp.controller('HardDrivesController', ['$scope', '$http', function($scope, $http){
-	$scope.gsxCost = 0;
+	$scope.gsxCost = "";
 
 	$http.get('../data/hdds.json').success(function(data){
 		$scope.hdds = data;
