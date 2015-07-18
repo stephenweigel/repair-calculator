@@ -13,6 +13,12 @@ myApp.controller('MarkupController', ['$scope', function($scope){
 				$scope.laborCost = parseInt(cost);
 			};
 
+			$scope.calculateTax = function(taxRate) {
+				var tax = taxRate || .06;
+				$scope.taxOnPart = $scope.markup.markedUpPrice * tax;
+				return  $scope.taxOnPart;
+			};
+
 			$scope.calculateMarkup = function() {
 				var sp = $scope.markup.startingPrice 
 					   = Number($scope.partCost);
@@ -24,7 +30,6 @@ myApp.controller('MarkupController', ['$scope', function($scope){
 					$scope.markup.markedUpPrice = sp * 1.42;
 				}
 				$scope.markup.markup = sp * $scope.markup.markupPercentage;
-				$scope.taxOnPart = $scope.markup.markedUpPrice * .06;
 				return $scope.markup;
 			};
 
