@@ -32,5 +32,4 @@ myApp.controller('HardDrivesController', ['$scope', '$http', function($scope, $h
 		drive.recovery = drive.taxed + 249;
 		return drive;
 	};
-
 }]); // HardDrivesController
