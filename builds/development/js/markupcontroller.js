@@ -9,6 +9,16 @@ myApp.controller('MarkupController', ['$scope', function($scope){
 			$scope.repairTotal = 0;
 			$scope.markup = {};
 
+			$scope.tab = 'standardLabor';
+
+			this.selectTab = function(setTab) {
+				$scope.tab = setTab;
+			};
+
+			this.isSelected = function(checkTab) {
+				return $scope.tab === checkTab;
+			};
+
 			$scope.setLaborCost = function(cost) {
 				$scope.laborCost = parseInt(cost);
 			};

@@ -15,20 +15,18 @@
 }
 
 .repairTypes {
-	min-height: 150px;
 	padding-left: 0;
 	text-align: center;
 }
 
 .repairTypes li {
-	margin: .5em;
 	list-style: none;
-	font-size: 1.1em;
+	text-align: center;
 }
 
-.laborBtn {
+.laborBtn, .hddLaborBtn {
 	display: block;
-	margin: 1em auto 0;
+	margin: 0 auto;
 }
 
 #partForm {
