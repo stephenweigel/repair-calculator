@@ -1,0 +1,37 @@
+<h3> Apple Hard Drives ordered from GSX must be used for 2009-Current iMacs </h3>
+
+
+<div class="col-md-4">
+	<div class="form-group">
+		<label for="gsxCost">Drive Cost ( including shipping ):</label>
+			<input type="number" name="gsxCost" class="form-control" min="0.00" step="0.01" ng-model="gsxCost" placeholder="0.00" />
+	</div>
+</div>
+
+<div class="col-md-7 col-md-offset-1">
+	
+	<table class="table">
+		<tr>
+			<th>Drive Price</th>
+			<th>Tax on Drive</th>
+			<th>Total</th>
+		</tr>
+		<tr>
+			<td>{{ getGsxPrice().markup | currency }}</td>
+			<td>{{ getGsxPrice().tax | currency }}</td>
+			<td>{{ getGsxPrice().taxed | currency }}</td>
+
+		</tr>
+		<tr>
+			<th>Total with Clean Install</th>
+			<th>Total with Data Migration</th>
+			<th>Total with Data Recovery</th>
+		</tr>
+		<tr>
+		
+			<td>{{ getGsxPrice().clean | currency }}</td>
+			<td>{{ getGsxPrice().migration | currency }}</td>
+			<td>{{ getGsxPrice().recovery | currency }}</td>
+		</tr>
+	</table>
+</div>

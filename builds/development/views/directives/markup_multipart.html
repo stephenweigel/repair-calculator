@@ -1,0 +1,24 @@
+<h2>Total Repair Cost</h2>
+<p class="text-center" ng-hide="repair.length">Please add a part to the repair.</p>
+<table class="table" ng-show="repair.length">
+  <tr>
+    <th>Part</th>
+    <th>Price</th>
+    <th>Tax</th>
+    <th>Labor</th>
+    <th>Total</th>
+  </tr>
+  <tr ng-repeat="part in repair">
+    <td>{{part.name}}</td>
+    <td>{{part.price | currency }}</td>
+    <td>{{part.tax | currency }}</td>
+    <td>{{part.labor | currency }}</td>
+    <td>{{part.total | currency }}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Total</td>
+    <td>{{ calculateRepairTotal() | currency }}
+</table>

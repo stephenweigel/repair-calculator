@@ -1,0 +1,34 @@
+<h2 class="text-center">Part Totals</h2>
+<div>
+  <table class="table col-md-8 col-md-offset-1">
+    <tr>
+      <th>Item</th>
+      <th>Cost</th>
+    </tr>
+    <tr>
+      <td>Labor Cost</td>
+      <td id="laborCost">{{ laborCost | currency }}</td>
+    </tr>
+    <tr>
+      <td>Parts Cost</td>
+      <td id="partsCost">{{ markup.markedUpPrice | currency }}</td>
+    </tr>
+    <tr>
+      <td>Tax</td>
+      <td id="taxCost">{{ calculateTax() | currency }}</td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <td id="totalCost">{{ calculatePartTotal() | currency }} </td>
+    </tr>
+  </table>
+</div>
+
+<form name="partForm" id="partForm" ng-submit="partForm.$valid && addToRepair()" novalidate>
+  <div class="form-group">
+    <label>Part Name: </label>
+      <input type="text" name="partName" id="partName" ng-model="partName" required />
+    </label>
+    <input type="submit" id="addToCart" class="btn btn-primary" value="Add to Repair"/>
+  </div><!-- form-group -->
+</form>

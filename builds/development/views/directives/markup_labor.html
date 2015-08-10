@@ -1,0 +1,129 @@
+
+    <ul class="nav nav-pills">
+      <li ng-class="{ active:markupCtrl.isSelected('standardLabor') }">
+        <a href ng-click="markupCtrl.selectTab('standardLabor')">Standard Labor</a>
+      </li>
+      <li ng-class="{ active:markupCtrl.isSelected('hddLabor') }">
+        <a href ng-click="markupCtrl.selectTab('hddLabor')">Hard Drive Labor</a>
+      </li>
+      <li ng-class="{ active:markupCtrl.isSelected('ramLabor') }">
+        <a href ng-click="markupCtrl.selectTab('ramLabor')">RAM Upgrade</a>
+      </li>
+    </ul>
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-center">Description</th>
+          <th class="text-center">Labor Cost</th>
+        </tr>
+      <tbody ng-show="markupCtrl.isSelected('standardLabor')">
+        <tr>
+          <td>
+            <ul class="repairTypes">
+              <li>Fan Replacement</li>
+              <li>Optical Drive Replacement</li>
+            </ul>
+          </td>
+          <td>
+             <button class="btn btn-primary laborBtn" ng-click="setLaborCost(99)">$99</button>
+           </td>
+        </tr>
+        <tr>
+          <td>
+             <ul class="repairTypes">
+              <li>Trackpad Replacement</li>
+              <li>Clamshell Replacement</li>
+            </ul>
+          </td>
+          <td>
+             <button class="btn btn-primary laborBtn" ng-click="setLaborCost(125)">$125</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ul class="repairTypes">
+              <li>Logic Board Replacement</li>
+              <li>Top Case Replacement</li>
+              <li>iMac Video Card Replacement</li>
+            </ul>
+          </td>
+          <td>
+            <button class="btn btn-primary laborBtn" ng-click="setLaborCost(150)">$150</button>
+          </td>
+        </tr>
+      </tbody>
+      <tbody ng-show="markupCtrl.isSelected('hddLabor')">
+        <tr>
+          <td>
+            <ul class="repairTypes">
+              <li>HDD w/ Clean Install</li>
+            </ul>
+          </td>
+          <td>
+            <button class="btn btn-primary hddLaborBtn" ng-click="setLaborCost(149)">$149</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ul class="repairTypes">
+              <li>HDD w/ Data Migration</li>
+            </ul>
+          </td>
+          <td>
+            <button class="btn btn-primary hddLaborBtn" ng-click="setLaborCost(174)">$174</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ul class="repairTypes">
+              <li>HDD w/ Data Recovery</li>
+            </ul>
+          </td>
+          <td>
+            <button class="btn btn-primary hddLaborBtn" ng-click="setLaborCost(249)">$249</button>
+          </td>
+        </tr>
+      </tbody>
+      <tbody ng-show="markupCtrl.isSelected('ramLabor')">
+        <tr>
+          <td>
+            <ul class="repairTypes">
+              <li>2GB Upgrade</li>
+            </ul>
+          </td>
+          <td>
+            <button class="btn btn-primary hddLaborBtn" ng-click="setLaborCost(49)">$49</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ul class="repairTypes">
+              <li>4GB Upgrade</li>
+            </ul>
+          </td>
+          <td>
+            <button class="btn btn-primary hddLaborBtn" ng-click="setLaborCost(99)">$99</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ul class="repairTypes">
+              <li>8GB Upgrade</li>
+            </ul>
+          </td>
+          <td>
+            <button class="btn btn-primary hddLaborBtn" ng-click="setLaborCost(149)">$149</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ul class="repairTypes">
+              <li>16GB Upgrade</li>
+            </ul>
+          </td>
+          <td>
+            <button class="btn btn-primary hddLaborBtn" ng-click="setLaborCost(199)">$199</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>

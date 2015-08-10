@@ -1,0 +1,28 @@
+<h3>Western Digital & HGST drives can be used in Pre-2009 iMacs and in Pre-Retina MacBook Pros</h3>
+<table class="table">
+	<tr>
+		<th>Hard Drive</th>
+		<th ng-show="costToStore.show">Cost to Store</th>
+		<th>Drive Price</th>
+		<th>Tax on Drive</th>
+		<th>Total with Clean Install</th>
+		<th>Total with Data Migration</th>
+		<th>Total with Data Recovery</th>
+	</tr>
+	<tr ng-repeat="hdd in hdds">
+	<td>{{ hdd.name }}</td>
+	<td ng-show="costToStore.show">{{ hdd.price | currency }}</td>
+	<td>{{ hdd.markup | currency }}</td>
+	<td>{{ hdd.tax | currency }}</td>
+	<td>{{ hdd.clean | currency }}</td>
+	<td>{{ hdd.migration | currency }}</td>
+	<td>{{ hdd.recovery | currency }}</td>
+	</tr>
+</table>
+
+<div class="btn-group">
+	<label class="btn btn-primary">
+		Show Cost to Store
+		<input ng-model="costToStore.show" type="checkbox" /> 
+	</label>
+</div>

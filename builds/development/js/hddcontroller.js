@@ -1,6 +1,7 @@
 myApp.controller('HardDrivesController', ['$scope', '$http', function($scope, $http){
-	$scope.gsxCost = "";
+	$scope.gsxCost = ""; // set initial binding to 0 while allowing for a placeholder
 
+	// retrieve hard drive JSON data
 	$http.get('../data/hdds.json').success(function(data){
 		$scope.hdds = data;
 		for ( var i = 0; i < $scope.hdds.length; i++ ) {
@@ -9,16 +10,19 @@ myApp.controller('HardDrivesController', ['$scope', '$http', function($scope, $h
 		}
 	});
 
-	$scope.calculateGsxPrice = function() {
+	// create object with GSX price info
+	$scope.getGsxPrice = function() {
 		var drive = { 
 			"price" : $scope.gsxCost
 		};
 		return $scope.calculatePrices(drive);
 	};
 
+	// calculate various GSX prices
 	$scope.calculatePrices = function(drive) {
 		var cost = Number(drive.price);
 
+		// define markup based on price
 		if ( cost > 149.99 ) {
 			drive.markup = cost * 1.25;
 		} else {

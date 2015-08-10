@@ -1,5 +1,5 @@
-# Absolute Mac Application
-This is an application for helping quote customers faster and more accurately at Absolute Mac.
+# Repair Calculator Application
+This is an application for helping quote customers at a computer repair shop.
 
 ## Instructions
 1. Make sure you have [node.js](http://nodejs.org/) and [git](http://git-scm.com/) installed on your machine.

@@ -1,0 +1,26 @@
+<h2 class="text-center">Part Cost</h2>
+<div class="form-group">
+  <label for="partCost">Part Cost ( including shipping ):</label>
+  <input type="number" min="0.01" step="0.01" class="form-control" id="partCost" ng-model="partCost" placeholder="$0.00">
+</div>
+<div>
+  <div ng-show="markupInfo.show">
+    <ul id="markupInfo">
+      <li class="markupInfo">
+        Markup Percentage: {{ markup.markupPercentage | percentage }}
+      </li>
+      <li class="markupInfo">
+        Markup: {{ markup.markup | currency }}
+      </li>
+      <li class="markupInfo">
+        Part Cost with Markup: {{ calculateMarkup().markedUpPrice | currency }}
+      </li>
+
+  </div>
+  <div class="btn-group">
+    <label class="btn btn-primary">
+      Show Markup Info
+      <input id="storeCostCheckbox" ng-model="markupInfo.show" type="checkbox" /> 
+    </label>
+  </div>
+</div>

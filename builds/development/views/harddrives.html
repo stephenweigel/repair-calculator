@@ -1,70 +1,7 @@
 <section ng-controller="HardDrivesController">
-<h1>Hard Drives</h1>
+	<h1>Hard Drives</h1>
 
-<h3>Western Digital & HGST drives can be used in Pre-2009 iMacs and in Pre-Retina MacBook Pros</h3>
-<table class="table">
-	<tr>
-		<th>Hard Drive</th>
-		<th ng-show="costToStore.show">Cost to Store</th>
-		<th>Drive Price</th>
-		<th>Tax on Drive</th>
-		<th>Total with Clean Install</th>
-		<th>Total with Data Migration</th>
-		<th>Total with Data Recovery</th>
-	</tr>
-	<tr ng-repeat="hdd in hdds">
-	<td>{{ hdd.name }}</td>
-	<td ng-show="costToStore.show">{{ hdd.price | currency }}</td>
-	<td>{{ hdd.markup | currency }}</td>
-	<td>{{ hdd.tax | currency }}</td>
-	<td>{{ hdd.clean | currency }}</td>
-	<td>{{ hdd.migration | currency }}</td>
-	<td>{{ hdd.recovery | currency }}</td>
-	</tr>
-</table>
+	<standard-hard-drives></standard-hard-drives>
 
-<div class="btn-group">
-	<label class="btn btn-primary">
-		Show Cost to Store
-		<input ng-model="costToStore.show" type="checkbox" /> 
-	</label>
-</div>
-
-<h3> Apple Hard Drives ordered from GSX must be used for 2009-Current iMacs </h3>
-
-
-<div class="col-md-4">
-	<div class="form-group">
-		<label for="gsxCost">Drive Cost ( including shipping ):</label>
-			<input type="number" name="gsxCost" class="form-control" min="0.00" step="0.01" ng-model="gsxCost" placeholder="0.00" />
-	</div>
-</div>
-
-<div class="col-md-7 col-md-offset-1">
-	
-	<table class="table">
-		<tr>
-			<th>Drive Price</th>
-			<th>Tax on Drive</th>
-			<th>Total</th>
-		</tr>
-		<tr>
-			<td>{{ calculateGsxPrice().markup | currency }}</td>
-			<td>{{ calculateGsxPrice().tax | currency }}</td>
-			<td>{{ calculateGsxPrice().taxed | currency }}</td>
-
-		</tr>
-		<tr>
-			<th>Total with Clean Install</th>
-			<th>Total with Data Migration</th>
-			<th>Total with Data Recovery</th>
-		</tr>
-		<tr>
-		
-			<td>{{ calculateGsxPrice().clean | currency }}</td>
-			<td>{{ calculateGsxPrice().migration | currency }}</td>
-			<td>{{ calculateGsxPrice().recovery | currency }}</td>
-		</tr>
-	</table>
-</div>
+	<apple-hard-drives></apple-hard-drives>
 </section>

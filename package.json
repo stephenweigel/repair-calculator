@@ -1,10 +1,10 @@
 {
-  "name": "AbsoluteMac",
+  "name": "Repair Calculator",
   "version": "0.0.1",
-  "description": "An application to help quote prices for customers at Absolute Mac",
+  "description": "An application to help quote prices for customers at a computer repair shop",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/stephenweigel/absolutemac"
+    "url": "https://github.com/stephenweigel/repair-calculator.git"
   },
   "author": "Stephen Weigel",
   "devDependencies": {
